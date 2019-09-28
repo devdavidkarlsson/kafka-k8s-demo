@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kaniko
+spec:
+  containers:
+  - name: kaniko
+    image: gcr.io/kaniko-project/executor:latest
+    args: ["--dockerfile=watermill/Dockerfile",
+            "--context=s3://<bucket name>/<path to .tar.gz>",
+            "--destination=<aws_account_id.dkr.ecr.region.amazonaws.com/my-repository:my-tag>"]
+  restartPolicy: Never

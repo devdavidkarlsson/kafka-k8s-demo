@@ -2,7 +2,7 @@ helm repo add incubator http://storage.googleapis.com/kubernetes-charts-incubato
 helm install --name my-kafka incubator/kafka
 
 echo "KAFKA TOPICS"
-kubectl create -f pod-kafka.yaml
+kubectl create -f pod-kafka-testclient.yaml
 kubectl get pods
 kubectl exec -ti testclient -- ./bin/kafka-topics.sh --zookeeper my-kafka-zookeeper:2181 --list
 kubectl exec -ti testclient -- ./bin/kafka-topics.sh --zookeeper my-kafka-zookeeper:2181 --create --topic test --partitions 2 --replication-factor 2

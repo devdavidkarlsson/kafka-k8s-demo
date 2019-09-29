@@ -6,4 +6,4 @@ metadata:
 spec:
   containers:
   - name: golang
-    image:  kubernetes.docker.internal:5000/watermill
+    image:  airdavidkarlsson/watermill

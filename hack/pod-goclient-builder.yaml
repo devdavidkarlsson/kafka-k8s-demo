@@ -7,6 +7,8 @@ spec:
   - name: kaniko
     image: gcr.io/kaniko-project/executor:latest
     args: ["--dockerfile=watermill/Dockerfile",
-            "--context=s3://<bucket name>/<path to .tar.gz>",
-            "--destination=<aws_account_id.dkr.ecr.region.amazonaws.com/my-repository:my-tag>"]
+            "--context=git://github.com/devdavidkarlsson/kafka-k8s-demo.git#refs/heads/master",
+            "--destination=foo-docker-registry:5000/watermill:latest",
+            "--insecure"
+            ]
   restartPolicy: Never

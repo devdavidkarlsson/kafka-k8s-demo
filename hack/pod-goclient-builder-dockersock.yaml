@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dockerbuilder
+spec:
+  containers:
+  - name: docker
+    image: docker:18.09.9-dind
+    command: ["/bin/sh"]
+    args: ["-c",
+          "apk add git &&\
+          git clone git://github.com/devdavidkarlsson/kafka-k8s-demo.git &&\
+          cd kafka-k8s-demo/watermill &&\
+          docker build . -t foo-docker-registry:5000/watermill:latest &&\
+          echo DOCKER_OPTS="--insecure-registry=a.example.com --insecure-registry=b.example.com"
+          docker push foo-docker-registry:5000/watermill:latest"]
+    env:
+    - name: DOCKER_DRIVER
+      value: "overlay"
+    volumeMounts:
+    - name: dockersock
+      mountPath: "/var/run/docker.sock"
+  volumes:
+    - name: dockersock
+      hostPath:
+        path: /var/run/docker.sock
+  restartPolicy: Never
